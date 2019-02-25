@@ -1,0 +1,27 @@
+CLIENT SIDE CODE
+1. Implement job status code. 
+2. Add some check on submitted files? Allow bash scripts as well.
+3. Add code to get data of currently connected zombies
+4. Prettify the code :P
+
+
+
+MAIN CODE
+1. Make a datastructure to track jobs and their status on different machines. (Use some DB perhaps?)
+2. Finalize the code of endpoints and make them more generic. 
+3. Add logic to assign names to the zombies. 
+4. Evaluate performance under load.
+5. Implement a trivial scheduler that satisfies two conditions:
+    a) Can accept any number of Jobs and will ensure that all the jobs will get executed in finite time.
+    b) Will make sure that only one job is executed on a zombie node at a time. 
+    c) Maximizes the utilization of the zombie nodes.
+
+
+ZOMBIE CODE
+1. Read all the configurations from a config file rather.
+2. Add capability to execute bash scripts.
+3. Add capability to run jobs with sudo access.
+4. Clean code up, and code to log all the events and upload the log file to the Main after say 1 Hour.
+5. Evaluate connection's correctness and soundness in presence of proxies.
+6. Add the logic that allows the zombie to send all the script's traffic through a proxy. 
+

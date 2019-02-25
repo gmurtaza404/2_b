@@ -1,5 +1,4 @@
 // Node Libraries
-
 const io = require('socket.io-client')
 const publicIp = require('public-ip');
 const fs = require('fs');
@@ -11,8 +10,8 @@ write_file = util.promisify(fs.writeFile)
 
 // Globals
 master_socket_server_port = 10002;
-
-
+master_url = "http://127.0.0.1:10002"
+const pc_name = "zombie_node_0"
 
 
 /*
@@ -21,12 +20,17 @@ master_socket_server_port = 10002;
 
 
 const main = async () => {
-    const socket = io('http://localhost:10002');
+    const socket = io(master_url);
     
     socket.emit("zombie_info", {
-        pc_name: "zombie_node_0",
+        pc_name: pc_name,
         public_ip: await publicIp.v4()
     });
+    socket.on("disconnect", () =>{
+        console.log("Pipe broke, restarting...")
+        process.exit()
+    })
+
 
     socket.on("run_script", async (data) =>{
         console.log(data)
@@ -35,8 +39,26 @@ const main = async () => {
             
             let cmd = 'python '+ data.script_name;
             
+            socket.emit("job_status" , {
+                message: 'Started on' +  pc_name
+            })
+
+
             exec(cmd, (error, stdout, stderr) => {
-                console.log(stdout, stderr)
+                
+                socket.emit("stdout", {
+                    job_id: data.job_id,
+                    stdout: stdout
+                })
+
+                socket.emit("stderr", {
+                    job_id: data.job_id,
+                    stderr: stderr
+                })
+
+                socket.emit("job_status" ,{
+                    message: 'Completed on' +  pc_name
+                })
             });
 
 

@@ -8,8 +8,8 @@ var rimraf = require("rimraf");
 
 
 // Globals
-const server_port = 10001
-const master_socket_port = 10002
+const server_port = 1001
+const master_socket_port = 1002
 
 
 const server_express_object = express()

@@ -4,20 +4,20 @@ const publicIp = require('public-ip');
 const fs = require('fs');
 const util = require('util')
 const exec =require('child_process').exec
+var argv = require('minimist')(process.argv.slice(2));
+
 
 write_file = util.promisify(fs.writeFile)
 
 
 // Globals
 master_socket_server_port = 10002;
-master_url = "http://127.0.0.1:10002"
-const pc_name = "zombie_node_0"
-
+const master_url = argv["url"]
+const pc_name = argv["pcname"]
 
 /*
     Firing up the routines...
 */
-
 
 const main = async () => {
     const socket = io(master_url);

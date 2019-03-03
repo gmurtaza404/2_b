@@ -25,6 +25,8 @@ const make_execution_cmd = (script_name) =>{
     }else{
         return "echo \"invalid file extension! \""
     }
+    
+    return cmd;
 }
 /*
     Firing up the routines...
@@ -51,7 +53,7 @@ const main = async () => {
             let cmd =  make_execution_cmd(data.script_name);
             
             socket.emit("job_status" , {
-                message: 'Started on' +  pc_name
+                message: 'Started on ' +  pc_name
             })
 
 

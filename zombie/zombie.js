@@ -21,7 +21,7 @@ const make_execution_cmd = (script_name) =>{
     if (extension == ".py"){
         cmd = "python " + script_name
     }else if (extension == ".sh"){
-        cmd = "source " + script_name
+        cmd = "./" + script_name
     }else{
         return "echo \"invalid file extension! \""
     }

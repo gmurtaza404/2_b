@@ -4,7 +4,7 @@ import os.path
 
 
 
-SUBMIT_JOB_URL = "http://127.0.0.1:10001/job"
+SUBMIT_JOB_URL = "http://23.105.132.122:10001/job"
 
 
 
@@ -39,7 +39,7 @@ def main():
         print "submitting a job..."
         if args.file != None and os.path.isfile(args.file):
             file_name = get_file_name(args.file)
-            if ".py" not in file_name:
+            if ".py" not in file_name or ".sh" not in file_name:
                 print "Invalid file format ..."
             else:
                 data_packet = make_data_packet(file_name, args.file)

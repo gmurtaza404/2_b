@@ -5,7 +5,7 @@ const fs = require('fs');
 const util = require('util')
 const exec =require('child_process').exec
 var argv = require('minimist')(process.argv.slice(2));
-
+var path = require('path')
 
 write_file = util.promisify(fs.writeFile)
 
@@ -15,6 +15,17 @@ master_socket_server_port = 10002;
 const master_url = argv["url"]
 const pc_name = argv["pcname"]
 
+const make_execution_cmd = (script_name) =>{
+    extension = path.extname(script_name)
+    let cmd = ''
+    if (extension == "py"){
+        cmd = "python " + script_name
+    }else if (extension == "sh"){
+        cmd = "source " + script_name
+    }else{
+        return "echo \"invalid file extension! \""
+    }
+}
 /*
     Firing up the routines...
 */
@@ -37,7 +48,7 @@ const main = async () => {
         try{
             await write_file(data.script_name, data.script_binary)
             
-            let cmd = 'python '+ data.script_name;
+            let cmd =  make_execution_cmd(data.script_name);
             
             socket.emit("job_status" , {
                 message: 'Started on' +  pc_name

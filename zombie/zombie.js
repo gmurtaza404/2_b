@@ -18,9 +18,9 @@ const pc_name = argv["pcname"]
 const make_execution_cmd = (script_name) =>{
     extension = path.extname(script_name)
     let cmd = ''
-    if (extension == "py"){
+    if (extension == ".py"){
         cmd = "python " + script_name
-    }else if (extension == "sh"){
+    }else if (extension == ".sh"){
         cmd = "source " + script_name
     }else{
         return "echo \"invalid file extension! \""

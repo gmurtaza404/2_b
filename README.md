@@ -15,6 +15,8 @@ Install Instruction (Zombie):
 2. Clone git repo, and navigate to "./2_b/main" folder. 
     git clone https://github.com/gmurtaza404/2_b.git
     cd 2_b/zombie
+    npm install
+    node zombie "http:ip_of_master:master_port"
 
 
 
